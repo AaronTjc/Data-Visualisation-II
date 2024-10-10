@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Greenhouse gas emissions by gas from 1950 to 2022",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/percentage%20of%20each%20gas.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "Nitrous_Oxide_Percentage",
+        "Methane_Percentage",
+        "CO2_Percentage"
+      ],
+      "as": ["Gas", "Percentage"]
+    },
+    {
+      "calculate": "datum.Gas == 'Methane_Percentage' ? 'Methane (CH₄)' : datum.Gas == 'CO2_Percentage' ? 'Carbon dioxide (CO₂)' : 'Nitrous oxide (N₂O)'",
+      "as": "GasLabel"
+    }
+  ],
+  "mark": "area",
+  "encoding": {
+    "x": {"field": "Year", "type": "temporal", "axis": {"title": null}},
+    "y": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {"title": null}
+    },
+    "color": {
+      "field": "GasLabel",
+      "type": "nominal",
+      "scale": {"scheme": "category10"},
+      "legend": {"title": "Greenhouse Gases"}
+    },
+    "tooltip": [
+      {
+        "field": "Year",
+        "type": "temporal",
+        "timeUnit": "year",
+        "title": "Year"
+      },
+      {"field": "GasLabel", "type": "nominal", "title": "Gas"},
+      {
+        "field": "Percentage",
+        "type": "quantitative",
+        "format": ".2f",
+        "title": "Percentage(%)"
+      }
+    ]
+  },
+  "config": {}
+}

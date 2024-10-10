@@ -1,0 +1,23 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Nitrous Oxide Emissions by Sector",
+    "data": {
+      "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/nitrous.csv",
+      "format": {"type": "csv"}
+    },
+    "mark": "bar",
+    "encoding": {
+      "y": {
+        "field": "Sector",
+        "type": "nominal",
+        "title": "Sector",
+        "sort": "-x"
+      },
+      "x": {
+        "field": "Nitrous Oxide Emissions",
+        "type": "quantitative",
+        "title": "Emissions (Tonnes)"
+      }
+    }
+  }
+  

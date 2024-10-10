@@ -1,0 +1,22 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "CO2 Emissions by Sector",
+  "data": {
+    "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/co2-2.csv",
+    "format": {"type": "csv"}
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Sector",
+      "type": "nominal",
+      "title": "Sector",
+      "sort": "-x"
+    },
+    "x": {
+      "field": "Carbon dioxide emissions",
+      "type": "quantitative",
+      "title": "Emissions (Tonnes)"
+    }
+  }
+}
