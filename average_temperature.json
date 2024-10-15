@@ -2,10 +2,14 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "vconcat": [
     {
-      "title": {
-        "text": "Average Temperature Anomaly (Brush to Filter)",
+     "title": {
+        "text": "Average Temperature Anomaly",
         "fontSize": 26,
-        "offset": 15
+        "offset": 15,
+        "subtitleFontSize": 20,
+        "subtitleColor": "grey",
+        "subtitle": "(Brush to Filter)",
+        "subtitlePadding": 5
       },
       "width": 400,
       "height": 100,
@@ -38,7 +42,7 @@
     },
     {
       "title": {
-        "text": "Zoomed-in View (Filtered by Brush)",
+        "text": "Zoomed-in View",
         "fontSize": 26,
         "offset": 15
       },

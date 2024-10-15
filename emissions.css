@@ -19,6 +19,12 @@ h1 {
     word-spacing: 20%;
 }
 
+h2 {
+    font-size: 26;
+    font-family: Arial;
+    text-align: center;
+}
+
 hr {
     color: #c5c5c5;
     opacity: 0.6;
@@ -75,16 +81,16 @@ p {
 }
 
 #lolipop {
-    width: 50%;
+    width: 60%;
     margin-top: 2%;
-    margin-bottom: 4%;
+    margin-bottom: 2%;
     margin-left: 2%;
 }
 
 #line {
-    width: 50%;
+    width: 40%;
     margin-top: 2%;
-    margin-bottom: 4%;
+    margin-bottom: 2%;
 }
 
 #hr_up {

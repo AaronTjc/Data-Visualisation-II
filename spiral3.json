@@ -12,7 +12,7 @@
   "data": [
     {
       "name": "source",
-      "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/co2-2.csv",
+      "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/nitrous.csv",  
       "format": {"type": "csv", "delimiter": ","}
     },
     {
@@ -25,7 +25,7 @@
         },
         {
           "type": "window",
-          "sort": {"field": "Carbon dioxide emissions", "order": "descending"},
+          "sort": {"field": "Nitrous Oxide Emissions", "order": "descending"},
           "ops": ["row_number"],
           "as": ["rank"]
         }
@@ -41,20 +41,20 @@
       "domain": {
         "data": "table",
         "field": "Sector",
-        "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+        "sort": {"field": "Nitrous Oxide Emissions", "order": "descending"}
       }
     },
     {
       "name": "angleScale",
-      "type": "log", 
+      "type": "log",  
       "range": [0, {"signal": "1.5 * PI"}],
-      "domain": {"data": "table", "field": "Carbon dioxide emissions"}
+      "domain": {"data": "table", "field": "Nitrous Oxide Emissions"}
     },
     {
       "name": "colorScale",
       "type": "ordinal",
       "domain": {"data": "table", "field": "Sector"},
-      "range": ["#a93b75", "#E68A00", "#2874A6", "#B7950B", "#d12121", "#0b5394", "#9B59B6", "#8e7cc3", "#85521d"]
+      "range": ["#a93b75", "#E68A00", "#2874A6", "#B7950B", "#d12121", "#0b5394", "#9B59B6", "#8e7cc3", "#85521d", "#607d8b"]
     }
   ],
   "marks": [
@@ -72,21 +72,21 @@
         "update": {
           "fill": {"scale": "colorScale", "field": "Sector"},
           "startAngle": {"value": 0},
-          "endAngle": {"scale": "angleScale", "field": "Carbon dioxide emissions"},
+          "endAngle": {"scale": "angleScale", "field": "Nitrous Oxide Emissions"},
           "padAngle": {"signal": "padAngle"},
           "innerRadius": {
             "scale": "typeScale", 
             "field": "Sector", 
-            "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+            "sort": {"field": "Nitrous Oxide Emissions", "order": "descending"}
           },
           "outerRadius": {
             "scale": "typeScale",
             "field": "Sector",
             "offset": {"scale": "typeScale", "band": 1},
-            "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+            "sort": {"field": "Nitrous Oxide Emissions", "order": "descending"}
           },
           "tooltip": {
-            "signal": "datum.Sector + ': ' + format(datum['Carbon dioxide emissions'], ',.2f') + ' tonnes'"
+            "signal": "datum.Sector + ': ' + format(datum['Nitrous Oxide Emissions'], ',.2f') + ' tonnes'"
           }
         }
       }
