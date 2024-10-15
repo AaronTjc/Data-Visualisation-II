@@ -1,12 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-        "text": "Global Warming Potentials",
-        "fontSize": 26,
-        "offset": 15
-    },
+  "title": "Global Warming Potentials",
   "width": 600,
-  "height": 400,
+  "height": 200,
   "data": {
     "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/global-warming-potential-of-greenhouse-gases-over-100-year-timescale-gwp.csv"
   },
@@ -20,31 +16,40 @@
           "Carbon dioxide (CO₂)",
           "Methane (CH₄)",
           "Nitrous oxide (N₂O)"
+          
         ],
         "labels": [
           "All",
           "Carbon dioxide (CO₂)",
           "Methane (CH₄)",
           "Nitrous oxide (N₂O)"
+          
         ],
         "name": "Greenhouse Gas: "
-      }
+        
+      }      
     }
   ],
   "transform": [
-    {"filter": "datum.GWP > 0"},
-    {"filter": "EntitySelection == null || datum.Entity == EntitySelection"}
+    {
+      "filter": "datum.GWP > 0"  
+    },
+    {
+      "filter": "EntitySelection == null || datum.Entity == EntitySelection"
+    }
   ],
   "layer": [
     {
-      "mark": {"type": "rule", "strokeWidth": 2},
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 3
+      },
       "encoding": {
-        "y": {"field": "Entity", "type": "nominal", "axis": {"title": ""}},
-        "x": {
-          "field": "GWP",
-          "type": "quantitative",
-          "axis": {"title": "Global Warming Potential", "grid": false}
-        },
+        "y": {"field": "Entity", "type": "nominal", "axis": {"title": ""},
+        "sort": null, "scale":{
+          
+        }},
+        "x": {"field": "GWP", "type": "quantitative", "axis": {"title": "Global Warming Potential (GWP-100)", "grid": false}},
         "x2": {"value": 0},
         "color": {"value": "#6A86C1"}
       }
@@ -54,7 +59,7 @@
         "type": "point",
         "filled": true,
         "size": 200,
-        "opacity": 1,
+        "opacity":1,
         "tooltip": true
       },
       "encoding": {
@@ -64,7 +69,12 @@
       }
     },
     {
-      "mark": {"type": "text", "align": "left", "dx": 5, "dy": -5},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "dy": 0
+      },
       "encoding": {
         "y": {"field": "Entity", "type": "nominal"},
         "x": {"field": "GWP", "type": "quantitative"},
@@ -72,6 +82,5 @@
         "color": {"value": "#000000"}
       }
     }
-  ],
-  "config": {}
+  ]
 }

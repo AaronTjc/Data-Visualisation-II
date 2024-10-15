@@ -1,0 +1,56 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Donut chart for Global GHG Emissions by Sub-sector",
+    "width": 500,
+    "height": 500,
+    "data": {
+      "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Global-GHG-Emissions-by-sector-based-on-WRI-2020%20(1).csv", 
+      "format": {
+        "type": "csv"
+      }
+    },
+    "transform": [
+      {
+        "calculate": "datum['Share of global greenhouse gas emissions (%)']",
+        "as": "Share"
+      },
+      {
+        "filter": "datum['Sub-sector'] !== null"
+      }
+    ],
+    "mark": {
+      "type": "arc",
+      "innerRadius": 50
+    },
+    "encoding": {
+      "theta": {
+        "field": "Share",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "Sub-sector",
+        "type": "nominal",
+        "scale": {
+          "range": [
+            "#2f2585", "#337539", "#5da899", "#94caec", "#dcce7d",
+            "#c46a78", "#9f4a97", "#7e2954", "#009e74", "#0071b2",
+            "#56b3e9", "#f0e442", "#e69f00", "#d55c00", "#cc79a7",
+            "#c26a77", "#8fb4cc", "#ff91af", "#c19280", "#8fb0a9",
+            "#a9eebc", "#c59d64", "#fdaa77", "#647748", "#1c442a",
+            "#9a6c57", "#6b4937", "#b59b88", "#2c4a64", "#d5a9b3"
+          ]
+        }
+      },
+      "tooltip": [
+        {"field": "Sub-sector", "type": "nominal"},
+        {"field": "Share", "type": "quantitative", "format": ".1f"}
+      ]
+    },
+    "view": {"stroke": null},
+    "title": {
+        "text": "Global GHG Emissions by Sub-sector",
+        "fontSize": 26,
+        "offset": 15
+    }
+  }
+  

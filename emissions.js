@@ -1,8 +1,6 @@
 var area = "Greenhouse gas emissions by gas from 1950 to 2022.json";
 var map = "map.json";
-var spiral = "spiral.json";
-var spiral2 = "spiral2.json";
-var spiral3 = "spiral3.json";
+var donut = "donut.json";
 var lolipop = "lollipop.json"
 var line = "average_temperature.json";
 
@@ -12,9 +10,7 @@ vegaEmbed("#area", area).then(function(result) {
 
 vegaEmbed("#map", map);
 
-vegaEmbed("#spiral", spiral);
-vegaEmbed("#spiral2", spiral2);
-vegaEmbed("#spiral3", spiral3);
+vegaEmbed("#donut", donut);
 
 vegaEmbed("#lolipop", lolipop);
 vegaEmbed("#line", line);
