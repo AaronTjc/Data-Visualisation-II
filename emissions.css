@@ -1,38 +1,102 @@
-* {
-    background-color: #FEFDFD;
+
+body {
+    background-image: url("https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/offshore-greenhouse-gas-storage.png");
+    margin-left: 3%;
+    margin-right: 3%;
+    align-items: center;
 }
 
 h1 {
+    font-family: "Oriya MN";
     text-align: center;
-    margin-top: 3%;
-    margin-bottom: 2%;
+    margin-bottom: 1.5%;
+    color: #fefdfd8a;
+    background-color: #063159;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    border-radius: 6px;
+    font-size: 40px;
+    word-spacing: 20%;
 }
 
 hr {
-    color: grey;
+    color: #c5c5c5;
     opacity: 0.6;
 }
 
 p {
-    text-align: center;
-    font-family: sans-serif;
+    text-align: left;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-right: 8%;
     margin-left: 8%;
+    line-height: 1.5;
 }
 
-.charts {
-    width: fit-content;
-    display: flex;
-    justify-content: center;
+.border {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: #fefdfd8a;
+    padding-top: 2%;
+    padding-bottom: 2%;
     align-items: center;
-    align-content: center;
+}
+
+.co2 {
+    color: #d45a59;
+}
+
+.ch4 {
+    color: #1f77b4;
+}
+
+.n2o {
+    color: #d2b48c;
+}
+
+#first_border {
+    padding-top: 0%;
+}
+
+#map {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 100%;
     margin-top: 3%;
-    margin-right: 6%;
-    margin-left: 6%;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
 }
 
 #area {
-    margin-left: 10%;
-    margin-right: 10%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#lolipop {
+    width: 50%;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    margin-left: 2%;
+}
+
+#line {
+    width: 50%;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+#hr_up {
+    margin-top: 1%;
+}
+
+#hr_down {
+    margin-bottom: 1%;
+}
+
+#sidebyside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

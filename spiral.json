@@ -1,0 +1,96 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 500,
+    "height": 500,
+    "padding": 5,
+    "signals": [
+      {"name": "padAngle", "value": 0.03},
+      {"name": "bandPadding", "value": 0.1},
+      {"name": "innerRadius", "value": 60},
+      {"name": "hoverType", "value": null}
+    ],
+    "data": [
+      {
+        "name": "source",
+        "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/co2-2.csv",
+        "format": {"type": "csv", "delimiter": ","}
+      },
+      {
+        "name": "table",
+        "source": "source",
+        "transform": [
+          {
+            "type": "filter",
+            "expr": "datum.Year == 2020"
+          },
+          {
+            "type": "window",
+            "sort": {"field": "Carbon dioxide emissions", "order": "descending"},
+            "ops": ["row_number"],
+            "as": ["rank"]
+          }
+        ]
+      }
+    ],
+    "scales": [
+      {
+        "name": "typeScale",
+        "type": "band",
+        "paddingInner": {"signal": "bandPadding"},
+        "range": [{"signal": "innerRadius"}, {"signal": "width / 2 - 10"}],
+        "domain": {
+          "data": "table",
+          "field": "Sector",
+          "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+        }
+      },
+      {
+        "name": "angleScale",
+        "type": "linear",
+        "range": [0, {"signal": "1.5 * PI"}],
+        "domain": {"data": "table", "field": "Carbon dioxide emissions"}
+      },
+      {
+        "name": "colorScale",
+        "type": "ordinal",
+        "domain": {"data": "table", "field": "Sector"},
+        "range": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
+      }
+    ],
+    "marks": [
+      {
+        "type": "arc",
+        "from": {"data": "table"},
+        "encode": {
+          "enter": {
+            "x": {"signal": "width / 2"},
+            "y": {"signal": "height / 2"},
+            "stroke": {"value": "#f0f0f0"},
+            "strokeWidth": {"value": 1.5},
+            "cornerRadius": {"value": 10}
+          },
+          "update": {
+            "fill": {"scale": "colorScale", "field": "Sector"},
+            "startAngle": {"value": 0},
+            "endAngle": {"scale": "angleScale", "field": "Carbon dioxide emissions"},
+            "padAngle": {"signal": "padAngle"},
+            "innerRadius": {
+              "scale": "typeScale", 
+              "field": "Sector", 
+              "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+            },
+            "outerRadius": {
+              "scale": "typeScale",
+              "field": "Sector",
+              "offset": {"scale": "typeScale", "band": 1},
+              "sort": {"field": "Carbon dioxide emissions", "order": "descending"}
+            },
+            "tooltip": {
+              "signal": "datum.Sector + ': ' + format(datum['Carbon dioxide emissions'], ',.2f') + ' tonnes'"
+            }
+          }
+        }
+      }
+    ]
+  }
+  

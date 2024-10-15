@@ -1,74 +1,217 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Per capita greenhouse gas emission",
-  "width": 800,
-  "height": 400,
-  "params": [
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "Greenhouse Gas Emission Per Capita",
+        "fontSize": 26,
+        "offset": 15
+    },
+    "width": 800,
+    "height": 400,
+    "data":{
+        "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+    },
+    "projection": {
+        "type": "equalEarth"
+    },
+    "layer": [
       {
-          "name": "zoom_level",
-          "value": 150,
-          "bind":{
-              "input": "range",
-              "min": 100,
-              "max": 1000,
-              "step": 25,
-              "name": "Zoom:"
-          }}
-  ],
-  "projection": {
-      "type": "equalEarth",
-      "scale": {"expr": "zoom_level"}},
-  "data":{
-      "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
-      "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-  },
-  "transform": [
-      {
-          "lookup": "properties.NAME",
-          "from": {
-              "data" : {
-                  "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/ghg-emissions-2022.csv"
-              },
-              "key": "Country",
-              "fields": ["Per-capita greenhouse gas emissions"]
-              
+        "transform": [
+          {
+            "calculate": "'Data is not available in ' + datum.properties.NAME",
+            "as": "note"
           }
-      }
-      
-  ],
-
-  "selection": {
-      "legendSelection":{
-          "type": "multi",
-          "fields": ["Per-capital greenhouse gas emissions"],
-          "bind": "legend"
-      }
-  },
-  "mark": {"type": "geoshape", "stroke": "#7e7e7e", "strokeWidth": 0.5},
-  "encoding": {
-      "color": {
-          "field" : "Per-capita greenhouse gas emissions",
-          "type": "quantitative",
-          "scale": {
-              "type": "threshold",
-              "domain": [0,1,2,5,10,20],
-              "range": ["#fef6e4", "#fddc9a", "#f9c565", "#f69b3e", "#e76f3e","#dc4a20","#a83f26" ]
-          }
-      },
-
-      "opacity":{
-          "condition": {"selection": "legendSelection", "value": 2.5},
-          "value": 0.2
-
-      },
-      "tooltip":[
-          {"field": "properties.NAME", "type": "nominal", "title": "Country:"},
-          {"field": "Per-capita greenhouse gas emissions", "type": "quantitative",
-          "title": "Per-capita greenhouse gas emissions (in tonnes):"
-          } 
-      ]
-  }
-
-
-
+        ],
+        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "#7e7e7e", "strokeWidth": 0.3},
+        "encoding": {"tooltip": {"field": "note"}}
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/oceans.topojson",
+                "format": {"type": "topojson", "feature": "oceans"}
+            },
+            "mark": {"type": "geoshape", "fill": "skyblue"}
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/WorldMapWithGraticules.topojson",
+                "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+            },
+            "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "properties.NAME",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/ghg-emissions-2022.csv"
+                        },
+                        "key": "Country",
+                        "fields": ["Per-capita greenhouse gas emissions"]
+                    }
+                },
+                {
+                    "calculate": "datum.properties.NAME == 'Dem. Rep. Congo' ? 'Democratic Republic of the Congo' : datum.properties.NAME == 'Dominican Rep.' ? 'Dominican Republic' : datum.properties.NAME == 'Bosnia and Herz.' ? 'Bosnia and Herzegovina' : datum.properties.NAME  == 'S. Sudan' ? 'South Sudan' : datum.properties.NAME == 'Central African Rep.' ? 'Central African Republic' : datum.properties.NAME == \"Côte d'Ivoire\" ? \"Côte d'Ivoire\" : datum.properties.NAME" ,
+                    "as": "checkCountryName"
+                },
+                {
+                    "lookup": "checkCountryName", 
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/ghg-emissions-2022.csv",
+                            "format": {"type": "csv"}
+                        },
+                        "key": "Country",
+                        "fields": ["Per-capita greenhouse gas emissions"]
+                    }
+                }
+            ],
+            "selection": {
+                "legendSelection":{
+                    "type": "multi",
+                    "fields": ["Per-capital greenhouse gas emissions"],
+                    "bind": "legend"
+                }
+            },
+            "mark": {"type": "geoshape", "stroke": "#7e7e7e", "strokeWidth": 0.3},
+            "encoding": {
+                "color": {
+                    "field": "Per-capita greenhouse gas emissions",
+                    "type": "quantitative",
+                    "scale": {
+                        "type": "threshold",
+                        "domain": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+                        "range": ["#feffd5", "#ffe393", "#fec452", "#fe992a", "#ef7a22", "#eb7115", "#d36512", "#cd4b02", "#b84301", "#a43c01", "#8c2d04", "#702403"]
+                    },
+                    "legend": {
+                        "orient": "bottom",
+                        "direction": "horizontal",
+                        "title": "Greenhouse Gas Emissions Per-capita (in tonnes)",
+                        "titleLimit": 300, 
+                        "labelLimit": 0   
+                    }
+                },
+                "opacity":{
+                    "condition": {
+                        "selection": "legendSelection", 
+                        "value": 1
+                    },
+                    "value": 0.2
+                },
+                "tooltip": [
+                    {"field": "properties.NAME", "type": "nominal", "title": "Country:"},
+                    {
+                        "field": "Per-capita greenhouse gas emissions", "type": "quantitative",
+                        "title": "Per-capita greenhouse gas emissions (in tonnes):"
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "transform": [
+                {
+                    "lookup": "properties.NAME",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/ghg-emissions-2022.csv"
+                        },
+                        "key": "Country",
+                        "fields": ["Per-capita greenhouse gas emissions"]
+                    }
+                },
+                {"filter": "datum.properties.NAME == 'Nigeria'"},
+                {
+                    "calculate": "split('Emissions are low due to \\nlimited industrialization, \\nlow energy access, reliance \\non traditional biomass, and low \\nlevels of car ownership and \\nmodern energy use.', '\\n')",
+                    "as": "annotationText"
+                },
+                {"calculate": "-16", "as": "longitude"},
+                {"calculate": "-30", "as": "latitude"}
+            ],
+            "mark": {"type": "text", "dx": 0, "dy": 0, "color": "black"},
+            "encoding": {
+                "longitude": {"field": "longitude"},
+                "latitude": {"field": "latitude"},
+                "text": {"field": "annotationText"}
+            }
+        },
+        {
+            "data": {
+                "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "transform": [
+                {"filter": "datum.properties.NAME == 'Nigeria'"},
+                {"calculate": "-16", "as": "longitude"},
+                {"calculate": "-26", "as": "latitude"},
+                {"calculate": "9", "as": "longitude2"},
+                {"calculate": "8", "as": "latitude2"},
+                {"calculate": "datum.properties.NAME", "as": "annotationText"}
+            ],
+            "mark": {"type": "rule", "stroke": "black", "strokeWidth": 1},
+            "encoding": {
+                "longitude": {"field": "longitude"},
+                "latitude": {"field": "latitude"},
+                "longitude2": {"field": "longitude2"},
+                "latitude2": {"field": "latitude2"}
+            }
+        },
+        {
+            "data": {
+                "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "transform": [
+                {
+                    "lookup": "properties.NAME",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/ghg-emissions-2022.csv"
+                        },
+                        "key": "Country",
+                        "fields": ["Per-capita greenhouse gas emissions"]
+                    }
+                },
+                {"filter": "datum.properties.NAME == 'Australia'"},
+                {
+                    "calculate": "split('Australia is making efforts to \\ndecarbonize its economy, \\nbut its dependence on fossil fuels \\nand resource extraction presents \\nsignificant challenges.', '\\n')",
+                    "as": "annotationText"
+                },
+                {"calculate": "78", "as": "longitude"},
+                {"calculate": "-35", "as": "latitude"}
+            ],
+            "mark": {"type": "text", "dx": 0, "dy": 0, "color": "black"},
+            "encoding": {
+                "longitude": {"field": "longitude"},
+                "latitude": {"field": "latitude"},
+                "text": {"field": "annotationText"}
+            }
+        },
+        {
+            "data": {
+                "url" : "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/JS/ne_110m%20(2).json",
+                "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            },
+            "transform": [
+                {"filter": "datum.properties.NAME == 'Australia'"},
+                {"calculate": "78", "as": "longitude"},
+                {"calculate": "-31", "as": "latitude"},
+                {"calculate": "133", "as": "longitude2"},
+                {"calculate": "-25", "as": "latitude2"},
+                {"calculate": "datum.properties.NAME", "as": "annotationText"}
+            ],
+            "mark": {"type": "rule", "stroke": "black", "strokeWidth": 1},
+            "encoding": {
+                "longitude": {"field": "longitude"},
+                "latitude": {"field": "latitude"},
+                "longitude2": {"field": "longitude2"},
+                "latitude2": {"field": "latitude2"}
+            }
+        }
+    ],
+    "config": {}
 }

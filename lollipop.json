@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+        "text": "Global Warming Potentials",
+        "fontSize": 26,
+        "offset": 15
+    },
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/global-warming-potential-of-greenhouse-gases-over-100-year-timescale-gwp.csv"
+  },
+  "params": [
+    {
+      "name": "EntitySelection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Carbon dioxide (CO₂)",
+          "Methane (CH₄)",
+          "Nitrous oxide (N₂O)"
+        ],
+        "labels": [
+          "All",
+          "Carbon dioxide (CO₂)",
+          "Methane (CH₄)",
+          "Nitrous oxide (N₂O)"
+        ],
+        "name": "Greenhouse Gas: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.GWP > 0"},
+    {"filter": "EntitySelection == null || datum.Entity == EntitySelection"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "rule", "strokeWidth": 2},
+      "encoding": {
+        "y": {"field": "Entity", "type": "nominal", "axis": {"title": ""}},
+        "x": {
+          "field": "GWP",
+          "type": "quantitative",
+          "axis": {"title": "Global Warming Potential", "grid": false}
+        },
+        "x2": {"value": 0},
+        "color": {"value": "#6A86C1"}
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 200,
+        "opacity": 1,
+        "tooltip": true
+      },
+      "encoding": {
+        "y": {"field": "Entity", "type": "nominal"},
+        "x": {"field": "GWP", "type": "quantitative"},
+        "color": {"value": "#6A86C1"}
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 5, "dy": -5},
+      "encoding": {
+        "y": {"field": "Entity", "type": "nominal"},
+        "x": {"field": "GWP", "type": "quantitative"},
+        "text": {"field": "GWP", "type": "quantitative"},
+        "color": {"value": "#000000"}
+      }
+    }
+  ],
+  "config": {}
+}

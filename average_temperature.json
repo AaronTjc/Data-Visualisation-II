@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "vconcat": [
+    {
+      "title": {
+        "text": "Average Temperature Anomaly (Brush to Filter)",
+        "fontSize": 26,
+        "offset": 15
+      },
+      "width": 400,
+      "height": 100,
+      "data": {
+        "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Average%20Temperature%20anomaly.csv"
+      },
+      "mark": "line",
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "axis": {"grid": false}},
+        "y": {
+          "field": "Global average temperature",
+          "type": "quantitative",
+          "title": "Temperature Anomaly (°C)"
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "temporal",
+            "timeUnit": "year",
+            "title": "Year"
+          },
+          {
+            "field": "Global average temperature",
+            "type": "quantitative",
+            "format": ".2f"
+          }
+        ]
+      },
+      "selection": {"brush": {"type": "interval", "encodings": ["x"]}}
+    },
+    {
+      "title": {
+        "text": "Zoomed-in View (Filtered by Brush)",
+        "fontSize": 26,
+        "offset": 15
+      },
+      "width": 400,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Average%20Temperature%20anomaly.csv"
+      },
+      "mark": "line",
+      "transform": [{"filter": {"selection": "brush"}}],
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal", "timeUnit": "year", "axis": {"grid": false}},
+        "y": {
+          "field": "Global average temperature",
+          "type": "quantitative",
+          "title": "Temperature Anomaly (°C)"
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "temporal",
+            "timeUnit": "year",
+            "title": "Year"
+          },
+          {
+            "field": "Global average temperature",
+            "type": "quantitative",
+            "format": ".2f"
+          }
+        ]
+      }
+    }
+  ],
+  "spacing": 60,
+  "config": {}
+}

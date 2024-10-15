@@ -1,6 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Greenhouse gas emissions by gas from 1950 to 2022",
+  "title": {
+        "text": "Greenhouse Gas Breakdown",
+        "fontSize": 26,
+        "offset": 15
+  },
   "width": 800,
   "height": 400,
   "data": {
@@ -20,21 +24,40 @@
       "as": "GasLabel"
     }
   ],
-  "mark": "area",
+  "mark": {
+    "type": "area",
+    "line": {"color": "darkgray"},
+    "interpolate": "monotone"
+  },
   "encoding": {
-    "x": {"field": "Year", "type": "temporal", "axis": {"title": null}},
+    "x": {"field": "Year", "type": "temporal", "axis": {"title": null, "grid": false}},
     "y": {
       "field": "Percentage",
       "type": "quantitative",
       "stack": "normalize",
-      "axis": {"title": null}
+      "axis": {
+        "title": "Percentage (%)", 
+        "grid": false,
+        "labelExpr": "datum.value * 100"  
+      }
     },
     "color": {
       "field": "GasLabel",
       "type": "nominal",
-      "scale": {"scheme": "category10"},
+      "scale": {"domain": ["Carbon dioxide (CO₂)", "Methane (CH₄)", "Nitrous oxide (N₂O)"],
+        "range": ["#d45a59", "#1f77b4", "#d2b48c"]},
       "legend": {"title": "Greenhouse Gases"}
     },
+    "opacity": {
+      "condition": {"selection": "hover", "value": 1},
+      "value": 0.3
+    },
+    "order": {
+      "field": "GasLabel",
+      "type": "nominal",
+      "sort": ["Carbon dioxide (CO₂)", "Methane (CH₄)", "Nitrous oxide (N₂O)"]
+    },
+
     "tooltip": [
       {
         "field": "Year",
@@ -51,5 +74,14 @@
       }
     ]
   },
-  "config": {}
+  "selection": {
+    "hover": {
+      "type": "single",
+      "on": "mouseover",
+      "clear": "mouseout",
+      "empty": "all",
+      "fields": ["GasLabel"]
+    }
+  }
+  
 }
