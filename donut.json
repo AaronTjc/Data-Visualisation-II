@@ -1,56 +1,206 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Donut chart for Global GHG Emissions by Sub-sector",
-    "width": 400,
-    "height": 400,
-    "data": {
-      "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Global-GHG-Emissions-by-sector-based-on-WRI-2020%20(1).csv", 
-      "format": {
-        "type": "csv"
-      }
-    },
-    "transform": [
-      {
-        "calculate": "datum['Share of global greenhouse gas emissions (%)']",
-        "as": "Share"
-      },
-      {
-        "filter": "datum['Sub-sector'] !== null"
-      }
-    ],
-    "mark": {
-      "type": "arc",
-      "innerRadius": 50
-    },
-    "encoding": {
-      "theta": {
-        "field": "Share",
-        "type": "quantitative"
-      },
-      "color": {
-        "field": "Sub-sector",
-        "type": "nominal",
-        "scale": {
-          "range": [
-            "#2f2585", "#337539", "#5da899", "#94caec", "#dcce7d",
-            "#c46a78", "#9f4a97", "#7e2954", "#009e74", "#0071b2",
-            "#56b3e9", "#f0e442", "#e69f00", "#d55c00", "#cc79a7",
-            "#c26a77", "#8fb4cc", "#ff91af", "#c19280", "#8fb0a9",
-            "#a9eebc", "#c59d64", "#fdaa77", "#647748", "#1c442a",
-            "#9a6c57", "#6b4937", "#b59b88", "#2c4a64", "#d5a9b3"
-          ]
-        }
-      },
-      "tooltip": [
-        {"field": "Sub-sector", "type": "nominal"},
-        {"field": "Share", "type": "quantitative", "format": ".1f"}
-      ]
-    },
-    "view": {"stroke": null},
-    "title": {
-        "text": "Global GHG Emissions by Sub-sector",
-        "fontSize": 26,
-        "offset": 15
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Donut chart with annotations for Global GHG Emissions by Sub-sector",
+  "width": 400,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Global-GHG-Emissions-by-sector-based-on-WRI-2020%20(1).csv", 
+    "format": {
+      "type": "csv"
     }
-  }
-  
+  },
+  "transform": [
+    {
+      "calculate": "datum['Share of global greenhouse gas emissions (%)']",
+      "as": "Share"
+    },
+    {
+      "filter": "datum['Sub-sector'] !== null"
+    },
+    {
+      "calculate": "indexof(['Iron & Steel', 'Non-ferous metals', 'Chemical & petrochemical (energy)', 'Food and tobacco', 'Paper, pulp & printing', 'Machinery', 'Other industry', 'Road', 'Aviation', 'Ship', 'Rail', 'Pipeline', 'Residential', 'Commercial', 'Unallocated fuel combustion', 'Coal', 'Oil & Natural Gas', 'Energy in Agri & Fishing', 'Cement', 'Chemical & petrochemical (industrial)', 'Wastewater', 'Landfills', 'Grassland', 'Cropland', 'Forest Land', 'Crop Burning', 'Rice Cultivation', 'Agricultural Soils', 'Livestock & Manure'], datum['Sub-sector'])",
+      "as": "Sub-sector-index"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 160,
+        "cornerRadius": 5,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "theta": {
+          "field": "Share",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Sub-sector",
+          "type": "nominal",
+          "legend": null,
+          "sort": {"field": "Sub-sector-index", "order": "ascending"},
+          "scale": {
+            "domain": [
+              "Iron & Steel", "Non-ferous metals", "Chemical & petrochemical (energy)", "Food and tobacco", "Paper, pulp & printing", 
+              "Machinery", "Other industry", "Road", "Aviation", "Ship", "Rail", "Pipeline", "Residential", "Commercial", "Unallocated fuel combustion", 
+              "Coal", "Oil & Natural Gas", "Energy in Agri & Fishing", "Cement", "Chemical & petrochemical (industrial)", 
+              "Wastewater", "Landfills", "Grassland", "Cropland", "Forest Land", "Crop Burning", "Rice Cultivation", "Agricultural Soils", "Livestock & Manure"
+            ],
+            "range": [
+              "#640b0b", "#640b0b", "#640b0b", "#640b0b", "#640b0b", 
+              "#640b0b", "#640b0b", "#640b0b", "#640b0b", "#640b0b", 
+              "#640b0b", "#640b0b", "#640b0b", "#640b0b", "#640b0b", 
+              "#640b0b", "#640b0b", "#640b0b", "#505050", "#505050", 
+              "#6B5B95", "#6B5B95", "#2E7D32", "#2E7D32", "#2E7D32", 
+              "#2E7D32", "#2E7D32", "#2E7D32", "#2E7D32"
+            ]
+          }
+        },
+        "order": {
+          "field": "Sub-sector-index",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "Sub-sector", "type": "nominal"},
+          {"field": "Share", "type": "quantitative", "format": ".1f"}
+        ]
+      }
+    },   
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fill": "black",
+        "dx": -88,  
+        "dy": -140, 
+        "fontSize": 26
+      },
+      "encoding": {
+        "x": {"value": 150},  
+        "y": {"value": 320},  
+        "text": {"value": "Global Greenhouse Gas"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fill": "black",
+        "dx": -88,  
+        "dy": -140, 
+        "fontSize": 26
+      },
+      "encoding": {
+        "x": {"value": 175},  
+        "y": {"value": 360},  
+        "text": {"value": "Emissions by sector"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fill": "grey",
+        "dx": -88,  
+        "dy": -140, 
+        "fontSize": 12
+      },
+      "encoding": {
+        "x": {"value": 205},  
+        "y": {"value": 400},  
+        "text": {"value": "(Hover over to view sub-sector)"}
+      }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "fill": "#2E7D32",
+          "dx": -88,  
+          "dy": -140, 
+          "fontSize": 20,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {"value": -35},  
+          "y": {"value": 160},  
+          "text": {"value": "Agriculture, Forestry"}
+        }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "fill": "#2E7D32",
+          "dx": -88,  
+          "dy": -140, 
+          "fontSize": 20,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {"value": -40},  
+          "y": {"value": 180},  
+          "text": {"value": "& Land Use (18.4%)"}
+        }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "fill": "#640b0b",
+          "dx": -88,  
+          "dy": -140, 
+          "fontSize": 20,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {"value": 450},  
+          "y": {"value": 200},  
+          "text": {"value": "Energy (73.2%)"}
+        }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "fill": "#6B5B95",
+          "dx": -88,  
+          "dy": -140,  
+          "fontSize": 20,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {"value": -35},  
+          "y": {"value": 280},  
+          "text": {"value": "Waste (3.2%)"}
+        }
+    },
+    {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "fill": "#505050",
+          "dx": -88,  
+          "dy": -140,  
+          "fontSize": 20,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "x": {"value": -55},  
+          "y": {"value": 330},  
+          "text": {"value": "Industry (5.2%)"}
+        }
+    }
+  ],
+  "view": {"stroke": null}
+}
