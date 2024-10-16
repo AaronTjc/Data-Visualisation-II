@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Donut chart for Global GHG Emissions by Sub-sector",
-    "width": 500,
-    "height": 500,
+    "width": 400,
+    "height": 400,
     "data": {
       "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Global-GHG-Emissions-by-sector-based-on-WRI-2020%20(1).csv", 
       "format": {

@@ -11,7 +11,7 @@
         "subtitle": "(Brush to Filter)",
         "subtitlePadding": 5
       },
-      "width": 400,
+      "width": 700,
       "height": 100,
       "data": {
         "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Average%20Temperature%20anomaly.csv"
@@ -46,7 +46,7 @@
         "fontSize": 26,
         "offset": 15
       },
-      "width": 400,
+      "width": 700,
       "height": 300,
       "data": {
         "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/Average%20Temperature%20anomaly.csv"

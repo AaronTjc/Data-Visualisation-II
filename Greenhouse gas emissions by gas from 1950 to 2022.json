@@ -5,8 +5,8 @@
         "fontSize": 26,
         "offset": 15
   },
-  "width": 800,
-  "height": 400,
+  "width": 500,
+  "height": 350,
   "data": {
     "url": "https://raw.githubusercontent.com/AaronTjc/Data-Visualisation-2/refs/heads/main/Data/percentage%20of%20each%20gas.csv"
   },
@@ -46,7 +46,11 @@
       "type": "nominal",
       "scale": {"domain": ["Carbon dioxide (CO₂)", "Methane (CH₄)", "Nitrous oxide (N₂O)"],
         "range": ["#d45a59", "#1f77b4", "#d2b48c"]},
-      "legend": {"title": "Greenhouse Gases"}
+      "legend": {
+        "title": "Greenhouse Gases",
+        "orient": "top", 
+        "direction": "horizontal"
+      }
     },
     "opacity": {
       "condition": {"selection": "hover", "value": 1},

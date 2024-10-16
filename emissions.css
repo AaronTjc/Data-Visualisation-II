@@ -25,7 +25,7 @@ hr {
 }
 
 p {
-    text-align: left;
+    text-align: justify;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-right: 8%;
     margin-left: 8%;
@@ -93,7 +93,7 @@ a {
     align-items: center;    
     margin-top: 2%;
     margin-bottom: 2%;
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 #line {
@@ -102,6 +102,7 @@ a {
     align-items: center;    
     margin-top: 2%;
     margin-bottom: 2%;
+    margin-right: 2%;
 }
 
 #hr_up {
